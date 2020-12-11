@@ -26,12 +26,14 @@ repositories {
 ext {
   set('springCloudAlibabaVersion', "2.2.1.RELEASE")
   set('mapstructVersion', '1.4.1.Final')
-  set('knife4jVersion', '2.0.8')
+  set('knife4jVersion', '3.0.2')
   set('hutoolVersion', '5.5.2')
   set('zxingVersion', '3.4.1')
   set('jjwtVersion', '0.9.1')
   set('poiVersion', '4.1.2')
   set('minioVersion', '8.0.3')
+  set('jetbrainsAnnotationVersion', '20.1.0')
+  set('retrofitVersion', '2.2.2')
 }
 
 dependencies {
@@ -53,14 +55,17 @@ dependencies {
   implementation "io.jsonwebtoken:jjwt:${jjwtVersion}"
   implementation "org.apache.poi:poi-ooxml:${poiVersion}"
   implementation "io.minio:minio:${minioVersion}"
+  implementation "com.github.lianjiatech:retrofit-spring-boot-starter:${retrofitVersion}"
   compileOnly 'org.projectlombok:lombok'
   compileOnly "org.mapstruct:mapstruct:${mapstructVersion}"
+  compileOnly "org.jetbrains:annotations:${jetbrainsAnnotationVersion}"
   developmentOnly 'org.springframework.boot:spring-boot-devtools'
   runtimeOnly 'com.h2database:h2'
   runtimeOnly 'mysql:mysql-connector-java'
   annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
   annotationProcessor 'org.projectlombok:lombok'
   annotationProcessor "org.mapstruct:mapstruct-processor:${mapstructVersion}"
+  annotationProcessor "org.jetbrains:annotations:${jetbrainsAnnotationVersion}"
   testImplementation('org.springframework.boot:spring-boot-starter-test') {
     exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
   }
@@ -75,6 +80,10 @@ dependencyManagement {
 
 test {
   useJUnitPlatform()
+}
+
+springBoot {
+  buildInfo()
 }
 
 jib {

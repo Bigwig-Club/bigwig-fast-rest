@@ -1,0 +1,56 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.zaxxer.hikari.HikariDataSource
+    hikari:
+      minimum-idle: 5
+      maximum-pool-size: 15
+      auto-commit: true
+      idle-timeout: 30000
+      pool-name: UserHikariCP
+      max-lifetime: 1800000
+      connection-timeout: 30000
+      connection-test-query: select 1
+  jpa:
+    open-in-view: false
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+  redis:
+    lettuce:
+      pool:
+        max-active: 100
+        max-wait: -1
+        max-idle: 8
+        min-idle: 0
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+  cache:
+    type: redis
+    redis:
+      cache-null-values: false
+      time-to-live: 3600s
+  main:
+    banner-mode: off
+  servlet:
+    multipart:
+      max-request-size: 500MB
+      max-file-size: 500MB
+  data:
+    web:
+      pageable:
+        one-indexed-parameters: true
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: always
+knife4j:
+  cors: true
+  enable: true
+  documents:
+    - group: 公用接口
+      name: 相关接口调用说明文档
+      locations: classpath:docs/*

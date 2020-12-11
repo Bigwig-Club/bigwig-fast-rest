@@ -11,10 +11,13 @@ import java.util.stream.Collectors;
 import javax.annotation.Resource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UserService implements FService<User, UserDTO, Long> {
+public class UserService implements FService<User, UserDTO, Long>, UserDetailsService {
 
   @Resource
   private UserRepository userRepository;
@@ -72,5 +75,11 @@ public class UserService implements FService<User, UserDTO, Long> {
   @Override
   public void deleteAll(List<Long> ids) {
     userRepository.deleteByIdIn(ids);
+  }
+
+  @Override
+  public UserDetails loadUserByUsername(
+    String username) throws UsernameNotFoundException {
+    return userRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("用户不存在"));
   }
 }

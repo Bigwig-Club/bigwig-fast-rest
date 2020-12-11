@@ -56,6 +56,7 @@ dependencies {
   implementation "org.apache.poi:poi-ooxml:${poiVersion}"
   implementation "io.minio:minio:${minioVersion}"
   implementation "com.github.lianjiatech:retrofit-spring-boot-starter:${retrofitVersion}"
+  implementation 'com.google.guava:guava'
   compileOnly 'org.projectlombok:lombok'
   compileOnly "org.mapstruct:mapstruct:${mapstructVersion}"
   compileOnly "org.jetbrains:annotations:${jetbrainsAnnotationVersion}"

@@ -2,6 +2,7 @@ package dev.bigwig.fastrest.module.user.controller;
 
 import dev.bigwig.fastrest.common.FController;
 import dev.bigwig.fastrest.common.annotation.FPageable;
+import dev.bigwig.fastrest.common.annotation.FResponseStatus;
 import dev.bigwig.fastrest.module.user.entity.User;
 import dev.bigwig.fastrest.module.user.model.UserDTO;
 import dev.bigwig.fastrest.module.user.service.UserService;
@@ -74,6 +75,7 @@ public class UserController implements FController<User, UserDTO, Long> {
     userService.delete(id);
   }
 
+  @FResponseStatus
   @PostMapping("/delete")
   @Override
   public void deleteAll(@RequestBody List<Long> ids) {

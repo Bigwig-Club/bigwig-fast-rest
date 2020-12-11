@@ -13,8 +13,14 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @ConfigurationProperties(prefix = "f")
 public class FProperties {
 
+  /**
+   * 忽略权限校验的路径
+   */
   private List<String> ignoredPath;
 
+  /**
+   * Minio 对象存储配置
+   */
   private Minio minio = new Minio();
 
   @Data
@@ -22,14 +28,29 @@ public class FProperties {
   @NoArgsConstructor
   public static class Minio {
 
+    /**
+     * 端点地址
+     */
     private String endpoint;
 
+    /**
+     * 区域，随意配
+     */
     private String region;
 
+    /**
+     * 存储桶名称
+     */
     private String bucket;
 
+    /**
+     * Access Key
+     */
     private String accessKey;
 
+    /**
+     * Secret Key
+     */
     private String secretKey;
   }
 }

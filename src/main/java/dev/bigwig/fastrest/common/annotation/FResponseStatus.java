@@ -7,6 +7,9 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 import org.springframework.http.HttpStatus;
 
+/**
+ * 标记方法的特殊返回值，不标记则根据 Http 方法提供默认返回值
+ */
 @Documented
 @Target({ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)

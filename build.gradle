@@ -7,7 +7,8 @@ plugins {
 
 group = 'dev.bigwig'
 version = '0.0.1'
-sourceCompatibility = '11'
+sourceCompatibility = JavaVersion.VERSION_11
+targetCompatibility = JavaVersion.VERSION_11
 
 configurations {
   developmentOnly
@@ -93,11 +94,12 @@ jib {
   }
 
   to {
-    image = 'bigwig/fast-rest'
+    image = 'm01i0ng/bigwig-fast-rest'
     tags = ['latest']
   }
 
   container {
+    expandClasspathDependencies = true
     jvmFlags = ['-Xms512m', '-Xmx512m']
     ports = ['8080']
     creationTime = 'USE_CURRENT_TIMESTAMP'

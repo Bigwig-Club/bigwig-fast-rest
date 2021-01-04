@@ -14,6 +14,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.format.Formatter;
@@ -30,11 +31,11 @@ public class WebConfig {
 
     JavaTimeModule javaTimeModule = new JavaTimeModule();
     javaTimeModule.addSerializer(LocalDateTime.class,
-        new LocalDateTimeSerializer(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+      new LocalDateTimeSerializer(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
     javaTimeModule.addSerializer(LocalDate.class,
-        new LocalDateSerializer(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+      new LocalDateSerializer(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
     javaTimeModule.addSerializer(LocalTime.class,
-        new LocalTimeSerializer(DateTimeFormatter.ofPattern("HH:mm:ss")));
+      new LocalTimeSerializer(DateTimeFormatter.ofPattern("HH:mm:ss")));
     mapper.registerModule(javaTimeModule);
 
     mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
@@ -49,12 +50,12 @@ public class WebConfig {
   public Formatter<LocalDate> localDateFormatter() {
     return new Formatter<>() {
       @Override
-      public String print(LocalDate object, Locale locale) {
+      public @NotNull String print(@NotNull LocalDate object, @NotNull Locale locale) {
         return object.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
       }
 
       @Override
-      public LocalDate parse(String text, Locale locale) {
+      public @NotNull LocalDate parse(@NotNull String text, @NotNull Locale locale) {
         return LocalDate.parse(text, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
       }
     };
@@ -64,12 +65,12 @@ public class WebConfig {
   public Formatter<LocalTime> localTimeFormatter() {
     return new Formatter<>() {
       @Override
-      public String print(LocalTime object, Locale locale) {
+      public @NotNull String print(@NotNull LocalTime object, @NotNull Locale locale) {
         return object.format(DateTimeFormatter.ofPattern("HH:mm:ss"));
       }
 
       @Override
-      public LocalTime parse(String text, Locale locale) {
+      public @NotNull LocalTime parse(@NotNull String text, @NotNull Locale locale) {
         return LocalTime.parse(text, DateTimeFormatter.ofPattern("HH:mm:ss"));
       }
     };
@@ -79,12 +80,12 @@ public class WebConfig {
   public Formatter<LocalDateTime> localDateTimeFormatter() {
     return new Formatter<>() {
       @Override
-      public String print(LocalDateTime object, Locale locale) {
+      public @NotNull String print(@NotNull LocalDateTime object, @NotNull Locale locale) {
         return object.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
       }
 
       @Override
-      public LocalDateTime parse(String text, Locale locale) {
+      public @NotNull LocalDateTime parse(@NotNull String text, @NotNull Locale locale) {
         return LocalDateTime.parse(text, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
       }
     };

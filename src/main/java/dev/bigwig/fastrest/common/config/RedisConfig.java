@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.jsontype.impl.LaissezFaireSubTypeValidator;
-import javax.annotation.Resource;
+import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration;
 import org.springframework.cache.annotation.EnableCaching;
@@ -21,16 +21,15 @@ import org.springframework.data.redis.serializer.RedisSerializationContext;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 
+@RequiredArgsConstructor
 @Configuration
 @EnableCaching
 @AutoConfigureAfter(RedisAutoConfiguration.class)
 public class RedisConfig {
 
-  @Resource
-  private Jackson2ObjectMapperBuilder jacksonObjectMapperBuilder;
+  private final Jackson2ObjectMapperBuilder jacksonObjectMapperBuilder;
 
-  @Resource
-  private LettuceConnectionFactory redisConnectionFactory;
+  private final LettuceConnectionFactory redisConnectionFactory;
 
   @Bean
   public RedisTemplate<String, Object> redisTemplate() {

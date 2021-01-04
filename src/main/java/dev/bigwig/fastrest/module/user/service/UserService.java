@@ -8,22 +8,21 @@ import dev.bigwig.fastrest.module.user.repository.UserRepository;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
-import javax.annotation.Resource;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+@RequiredArgsConstructor
 @Service
 public class UserService implements FService<User, UserDTO, Long>, UserDetailsService {
 
-  @Resource
-  private UserRepository userRepository;
-
-  @Resource
-  private UserMapper userMapper;
+  private final UserRepository userRepository;
+  private final UserMapper userMapper;
 
   @Override
   public List<User> list() {
@@ -49,6 +48,11 @@ public class UserService implements FService<User, UserDTO, Long>, UserDetailsSe
   @Override
   public User create(UserDTO userDTO) {
     User user = userMapper.userDTOToUser(userDTO);
+    user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()))
+      .setEnabled(true)
+      .setAccountNonExpired(true)
+      .setAccountNonLocked(true)
+      .setCredentialsNonExpired(true);
     return userRepository.save(user);
   }
 
@@ -63,7 +67,13 @@ public class UserService implements FService<User, UserDTO, Long>, UserDetailsSe
   @Override
   public User update(Long id, UserDTO userDTO) {
     User user = userMapper.userDTOToUser(userDTO);
-    user.setId(id);
+    if (userDTO.getPassword() != null) {
+      user.setPassword(new BCryptPasswordEncoder().encode(userDTO.getPassword()));
+    }
+    user.setId(id)
+      .setAccountNonExpired(true)
+      .setAccountNonLocked(true)
+      .setCredentialsNonExpired(true);
     return userRepository.save(user);
   }
 
@@ -81,5 +91,12 @@ public class UserService implements FService<User, UserDTO, Long>, UserDetailsSe
   public UserDetails loadUserByUsername(
     String username) throws UsernameNotFoundException {
     return userRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("用户不存在"));
+  }
+
+  public void toggleEnabled(Long id) {
+    User user = userRepository.findById(id)
+      .orElseThrow(() -> new NoSuchElementException("用户不存在：" + id));
+    user.setEnabled(!user.isEnabled());
+    userRepository.save(user);
   }
 }

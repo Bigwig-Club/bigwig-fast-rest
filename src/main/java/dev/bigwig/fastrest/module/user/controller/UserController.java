@@ -9,7 +9,7 @@ import dev.bigwig.fastrest.module.user.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import java.util.List;
-import javax.annotation.Resource;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -25,10 +25,10 @@ import org.springframework.web.bind.annotation.RestController;
 @Api(tags = "用户管理")
 @RestController
 @RequestMapping("/users")
+@RequiredArgsConstructor
 public class UserController implements FController<User, UserDTO, Long> {
 
-  @Resource
-  private UserService userService;
+  private final UserService userService;
 
   @ApiOperation("列表")
   @GetMapping
@@ -56,14 +56,14 @@ public class UserController implements FController<User, UserDTO, Long> {
   @ApiOperation("创建")
   @PostMapping
   @Override
-  public User create(UserDTO userDTO) {
+  public User create(@RequestBody UserDTO userDTO) {
     return userService.create(userDTO);
   }
 
   @ApiOperation("批量创建")
   @PostMapping("/batch")
   @Override
-  public List<User> createAll(List<UserDTO> userDTOS) {
+  public List<User> createAll(@RequestBody List<UserDTO> userDTOS) {
     return userService.createAll(userDTOS);
   }
 
@@ -87,5 +87,11 @@ public class UserController implements FController<User, UserDTO, Long> {
   @Override
   public void deleteAll(@RequestBody List<Long> ids) {
     userService.deleteAll(ids);
+  }
+
+  @ApiOperation("切换封禁状态")
+  @PostMapping("/{id}/enabled")
+  public void toggleEnabled(@PathVariable Long id) {
+    userService.toggleEnabled(id);
   }
 }

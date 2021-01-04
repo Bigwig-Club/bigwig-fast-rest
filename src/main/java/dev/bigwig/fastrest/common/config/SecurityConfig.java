@@ -5,10 +5,10 @@ import dev.bigwig.fastrest.common.exception.FError;
 import dev.bigwig.fastrest.common.filter.JwtFilter;
 import dev.bigwig.fastrest.module.user.service.UserService;
 import java.io.IOException;
-import javax.annotation.Resource;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
@@ -26,17 +26,13 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
+@RequiredArgsConstructor
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-  @Resource
-  private UserService userService;
-
-  @Resource
-  private FProperties fProperties;
-
-  @Resource
-  private JwtFilter jwtFilter;
+  private final UserService userService;
+  private final FProperties fProperties;
+  private final JwtFilter jwtFilter;
 
   @Bean
   public PasswordEncoder passwordEncoder() {

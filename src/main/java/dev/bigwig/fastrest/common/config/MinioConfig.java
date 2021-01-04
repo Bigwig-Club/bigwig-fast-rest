@@ -4,7 +4,7 @@ import dev.bigwig.fastrest.common.config.FProperties.Minio;
 import io.minio.BucketExistsArgs;
 import io.minio.MakeBucketArgs;
 import io.minio.MinioClient;
-import javax.annotation.Resource;
+import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
@@ -14,13 +14,13 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Slf4j
+@RequiredArgsConstructor
 @Configuration
 @ConditionalOnClass(FProperties.class)
 @ConditionalOnProperty(prefix = "f.minio", value = "endpoint")
 public class MinioConfig {
 
-  @Resource
-  private FProperties fProperties;
+  private final FProperties fProperties;
 
   @Bean
   @ConditionalOnMissingBean

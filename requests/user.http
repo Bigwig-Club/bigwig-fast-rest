@@ -1,0 +1,23 @@
+GET http://localhost:8080/users
+
+###
+POST http://localhost:8080/users
+Content-Type: application/json
+
+{
+  "username": "admin",
+  "password": "secret",
+  "real_name": "admin",
+  "sex": "MALE"
+}
+
+###
+PUT http://localhost:8080/users/1
+Content-Type: application/json
+
+{
+  "username": "admin",
+  "password": "secret1",
+  "real_name": "admin",
+  "sex": "MALE"
+}

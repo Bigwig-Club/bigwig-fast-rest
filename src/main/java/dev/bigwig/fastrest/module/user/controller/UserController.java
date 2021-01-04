@@ -37,6 +37,7 @@ public class UserController implements FController<User, UserDTO, Long> {
     return userService.list();
   }
 
+  @ApiOperation("分页列表")
   @FPageable
   @GetMapping("/paged")
   @Override
@@ -45,36 +46,42 @@ public class UserController implements FController<User, UserDTO, Long> {
     return userService.list(pageable);
   }
 
+  @ApiOperation("根据 ID 获取")
   @GetMapping("/{id}")
   @Override
   public User get(@PathVariable Long id) {
     return userService.get(id);
   }
 
+  @ApiOperation("创建")
   @PostMapping
   @Override
   public User create(UserDTO userDTO) {
     return userService.create(userDTO);
   }
 
+  @ApiOperation("批量创建")
   @PostMapping("/batch")
   @Override
   public List<User> createAll(List<UserDTO> userDTOS) {
     return userService.createAll(userDTOS);
   }
 
+  @ApiOperation("根据 ID 更新")
   @PutMapping("/{id}")
   @Override
   public User update(@PathVariable Long id, @RequestBody UserDTO userDTO) {
     return userService.update(id, userDTO);
   }
 
+  @ApiOperation("根据 ID 删除")
   @DeleteMapping("/{id}")
   @Override
   public void delete(@PathVariable Long id) {
     userService.delete(id);
   }
 
+  @ApiOperation("批量删除")
   @FResponseStatus
   @PostMapping("/delete")
   @Override

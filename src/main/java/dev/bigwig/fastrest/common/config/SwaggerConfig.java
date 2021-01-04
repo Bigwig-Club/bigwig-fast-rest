@@ -15,7 +15,7 @@ import springfox.documentation.spring.web.plugins.Docket;
 @EnableKnife4j
 public class SwaggerConfig {
 
-  @Bean("userDocker")
+  @Bean("userDocket")
   public Docket userDocket() {
     return new Docket(DocumentationType.OAS_30)
       .apiInfo(getApiInfo())
@@ -23,7 +23,8 @@ public class SwaggerConfig {
       .select()
       .apis(RequestHandlerSelectors.basePackage("dev.bigwig.fastrest.module.user.controller"))
       .paths(PathSelectors.any())
-      .build();
+      .build()
+      .useDefaultResponseMessages(false);
   }
 
   private ApiInfo getApiInfo() {

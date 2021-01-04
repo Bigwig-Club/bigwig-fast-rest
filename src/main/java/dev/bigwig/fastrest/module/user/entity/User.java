@@ -1,5 +1,7 @@
 package dev.bigwig.fastrest.module.user.entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
 import com.google.common.collect.Lists;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
@@ -60,6 +62,7 @@ public class User implements Serializable, UserDetails {
   @Column(name = "username")
   private String username;
 
+  @JsonProperty(access = Access.WRITE_ONLY)
   @ApiModelProperty("密码")
   @Column(name = "password", nullable = false)
   private String password;

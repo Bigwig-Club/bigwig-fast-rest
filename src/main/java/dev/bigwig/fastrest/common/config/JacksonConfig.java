@@ -20,7 +20,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.format.Formatter;
 
 @Configuration
-public class WebConfig {
+public class JacksonConfig {
 
   @Bean
   public ObjectMapper objectMapper() {

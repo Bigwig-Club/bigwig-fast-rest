@@ -88,7 +88,12 @@ tasks {
     }
   }
 
-  withType(JavaCompile::class).configureEach {
+  withType<Wrapper> {
+    gradleVersion = gradleVersion
+    distributionType = Wrapper.DistributionType.BIN
+  }
+
+  withType<JavaCompile> {
     options.isFork = true
   }
 

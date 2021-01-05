@@ -10,9 +10,9 @@ version = "0.0.1"
 java.sourceCompatibility = JavaVersion.VERSION_11
 java.targetCompatibility = JavaVersion.VERSION_11
 
-val developmentOnly: Configuration by configurations.creating
-
+val developmentOnly = configurations.create("developmentOnly")
 configurations {
+  developmentOnly
   runtimeClasspath {
     extendsFrom(developmentOnly)
   }

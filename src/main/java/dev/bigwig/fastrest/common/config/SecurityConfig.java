@@ -89,10 +89,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public void handle(HttpServletRequest request,
       HttpServletResponse response,
       AccessDeniedException accessDeniedException) throws IOException, ServletException {
-      FError error = FError.builder()
-        .status(HttpStatus.FORBIDDEN)
-        .message("无权访问")
-        .build();
+      FError error = new FError()
+        .setStatus(HttpStatus.FORBIDDEN)
+        .setMessage("无权访问");
       response.setContentType("application/json; charset=UTF-8");
       response.setStatus(HttpStatus.FORBIDDEN.value());
       response.setCharacterEncoding("UTF-8");

@@ -113,7 +113,7 @@ jib {
 
   to {
     image = "m01i0ng/bigwig-fast-rest"
-    tags = setOf("latest")
+    tags = setOf("latest", "$version")
   }
 
   container {

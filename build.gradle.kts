@@ -2,7 +2,7 @@ plugins {
   id("org.springframework.boot") version "2.2.11.RELEASE"
   id("io.spring.dependency-management") version "1.0.10.RELEASE"
   id("java")
-  id("com.google.cloud.tools.jib") version "2.7.0"
+  id("com.google.cloud.tools.jib") version "2.7.1"
 }
 
 group = "dev.bigwig"

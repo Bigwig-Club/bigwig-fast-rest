@@ -28,20 +28,18 @@ public class MinioConfig {
   public MinioClient minioClient() {
     Minio minio = fProperties.getMinio();
 
-    MinioClient minioClient = MinioClient.builder()
-      .endpoint(minio.getEndpoint())
-      .region(minio.getRegion())
-      .credentials(minio.getAccessKey(), minio.getSecretKey())
-      .build();
-    BucketExistsArgs bucketExistsArgs = BucketExistsArgs.builder()
-      .bucket(minio.getBucket())
-      .build();
+    MinioClient minioClient =
+        MinioClient.builder()
+            .endpoint(minio.getEndpoint())
+            .region(minio.getRegion())
+            .credentials(minio.getAccessKey(), minio.getSecretKey())
+            .build();
+    BucketExistsArgs bucketExistsArgs =
+        BucketExistsArgs.builder().bucket(minio.getBucket()).build();
 
     if (!minioClient.bucketExists(bucketExistsArgs)) {
       log.info("f fast rest: bucket {} not exist, creating", minio.getBucket());
-      MakeBucketArgs makeBucketArgs = MakeBucketArgs.builder()
-        .bucket(minio.getBucket())
-        .build();
+      MakeBucketArgs makeBucketArgs = MakeBucketArgs.builder().bucket(minio.getBucket()).build();
       minioClient.makeBucket(makeBucketArgs);
     }
     return minioClient;

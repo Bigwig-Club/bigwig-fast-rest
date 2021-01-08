@@ -43,17 +43,21 @@ public class RedisConfig {
 
   @Bean
   public RedisCacheManager cacheManager() {
-    Jackson2JsonRedisSerializer<Object> serializer = new Jackson2JsonRedisSerializer<>(
-      Object.class);
+    Jackson2JsonRedisSerializer<Object> serializer =
+        new Jackson2JsonRedisSerializer<>(Object.class);
     ObjectMapper mapper = jacksonObjectMapperBuilder.build();
     mapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
     mapper.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.PUBLIC_ONLY);
-    mapper.activateDefaultTyping(LaissezFaireSubTypeValidator.instance, ObjectMapper.DefaultTyping.NON_FINAL,
-      JsonTypeInfo.As.PROPERTY);
+    mapper.activateDefaultTyping(
+        LaissezFaireSubTypeValidator.instance,
+        ObjectMapper.DefaultTyping.NON_FINAL,
+        JsonTypeInfo.As.PROPERTY);
 
     serializer.setObjectMapper(mapper);
-    RedisCacheConfiguration configuration = RedisCacheConfiguration.defaultCacheConfig()
-      .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(serializer));
+    RedisCacheConfiguration configuration =
+        RedisCacheConfiguration.defaultCacheConfig()
+            .serializeValuesWith(
+                RedisSerializationContext.SerializationPair.fromSerializer(serializer));
     return RedisCacheManager.builder(redisConnectionFactory).cacheDefaults(configuration).build();
   }
 }

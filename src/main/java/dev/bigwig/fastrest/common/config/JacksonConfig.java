@@ -30,12 +30,13 @@ public class JacksonConfig {
     mapper.registerModule(new Hibernate5Module());
 
     JavaTimeModule javaTimeModule = new JavaTimeModule();
-    javaTimeModule.addSerializer(LocalDateTime.class,
-      new LocalDateTimeSerializer(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
-    javaTimeModule.addSerializer(LocalDate.class,
-      new LocalDateSerializer(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
-    javaTimeModule.addSerializer(LocalTime.class,
-      new LocalTimeSerializer(DateTimeFormatter.ofPattern("HH:mm:ss")));
+    javaTimeModule.addSerializer(
+        LocalDateTime.class,
+        new LocalDateTimeSerializer(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+    javaTimeModule.addSerializer(
+        LocalDate.class, new LocalDateSerializer(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+    javaTimeModule.addSerializer(
+        LocalTime.class, new LocalTimeSerializer(DateTimeFormatter.ofPattern("HH:mm:ss")));
     mapper.registerModule(javaTimeModule);
 
     mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);

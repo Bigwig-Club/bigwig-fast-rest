@@ -36,9 +36,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "user", indexes = {
-  @Index(name = "unq_username", columnList = "username", unique = true)
-})
+@Table(
+    name = "user",
+    indexes = {@Index(name = "unq_username", columnList = "username", unique = true)})
 @EntityListeners(value = {AuditingEntityListener.class})
 @DynamicInsert
 @DynamicUpdate

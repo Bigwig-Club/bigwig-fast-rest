@@ -14,5 +14,4 @@ public class FastRestApplication {
   public static void main(String[] args) {
     SpringApplication.run(FastRestApplication.class, args);
   }
-
 }

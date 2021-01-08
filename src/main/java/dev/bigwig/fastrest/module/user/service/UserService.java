@@ -30,8 +30,7 @@ public class UserService implements FService<User, UserDTO, Long>, UserDetailsSe
   }
 
   @Override
-  public Page<User> list(
-    Pageable pageable) {
+  public Page<User> list(Pageable pageable) {
     return userRepository.findAll(pageable);
   }
 
@@ -49,18 +48,17 @@ public class UserService implements FService<User, UserDTO, Long>, UserDetailsSe
   public User create(UserDTO userDTO) {
     User user = userMapper.userDTOToUser(userDTO);
     user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()))
-      .setEnabled(true)
-      .setAccountNonExpired(true)
-      .setAccountNonLocked(true)
-      .setCredentialsNonExpired(true);
+        .setEnabled(true)
+        .setAccountNonExpired(true)
+        .setAccountNonLocked(true)
+        .setCredentialsNonExpired(true);
     return userRepository.save(user);
   }
 
   @Override
-  public List<User> createAll(
-    List<UserDTO> userDTOS) {
-    List<User> users = userDTOS.stream().map(userMapper::userDTOToUser)
-      .collect(Collectors.toList());
+  public List<User> createAll(List<UserDTO> userDTOS) {
+    List<User> users =
+        userDTOS.stream().map(userMapper::userDTOToUser).collect(Collectors.toList());
     return userRepository.saveAll(users);
   }
 
@@ -71,9 +69,9 @@ public class UserService implements FService<User, UserDTO, Long>, UserDetailsSe
       user.setPassword(new BCryptPasswordEncoder().encode(userDTO.getPassword()));
     }
     user.setId(id)
-      .setAccountNonExpired(true)
-      .setAccountNonLocked(true)
-      .setCredentialsNonExpired(true);
+        .setAccountNonExpired(true)
+        .setAccountNonLocked(true)
+        .setCredentialsNonExpired(true);
     return userRepository.save(user);
   }
 
@@ -88,14 +86,15 @@ public class UserService implements FService<User, UserDTO, Long>, UserDetailsSe
   }
 
   @Override
-  public UserDetails loadUserByUsername(
-    String username) throws UsernameNotFoundException {
-    return userRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("用户不存在"));
+  public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    return userRepository
+        .findByUsername(username)
+        .orElseThrow(() -> new UsernameNotFoundException("用户不存在"));
   }
 
   public void toggleEnabled(Long id) {
-    User user = userRepository.findById(id)
-      .orElseThrow(() -> new NoSuchElementException("用户不存在：" + id));
+    User user =
+        userRepository.findById(id).orElseThrow(() -> new NoSuchElementException("用户不存在：" + id));
     user.setEnabled(!user.isEnabled());
     userRepository.save(user);
   }

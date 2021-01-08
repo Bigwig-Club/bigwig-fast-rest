@@ -11,7 +11,8 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.repository.NoRepositoryBean;
 
 @NoRepositoryBean
-public interface FRepository<T extends Serializable, ID> extends JpaRepository<T, ID>, JpaSpecificationExecutor<T> {
+public interface FRepository<T extends Serializable, ID>
+    extends JpaRepository<T, ID>, JpaSpecificationExecutor<T> {
 
   @Override
   @NotNull

@@ -18,20 +18,20 @@ public class SwaggerConfig {
   @Bean("userDocket")
   public Docket userDocket() {
     return new Docket(DocumentationType.OAS_30)
-      .apiInfo(getApiInfo())
-      .groupName("用户管理")
-      .select()
-      .apis(RequestHandlerSelectors.basePackage("dev.bigwig.fastrest.module.user.controller"))
-      .paths(PathSelectors.any())
-      .build()
-      .useDefaultResponseMessages(false);
+        .apiInfo(getApiInfo())
+        .groupName("用户管理")
+        .select()
+        .apis(RequestHandlerSelectors.basePackage("dev.bigwig.fastrest.module.user.controller"))
+        .paths(PathSelectors.any())
+        .build()
+        .useDefaultResponseMessages(false);
   }
 
   private ApiInfo getApiInfo() {
     return new ApiInfoBuilder()
-      .description("Bigwig fast rest.")
-      .contact(new Contact("m01i0ng", "", "alley.ma@qq.com"))
-      .version("1.0.0")
-      .build();
+        .description("Bigwig fast rest.")
+        .contact(new Contact("m01i0ng", "", "alley.ma@qq.com"))
+        .version("1.0.0")
+        .build();
   }
 }

@@ -14,24 +14,24 @@ import org.springframework.http.server.ServerHttpResponse;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
-/**
- * 响应处理器
- */
+/** 响应处理器 */
 @RestControllerAdvice
 public class FResponseHandler implements ResponseBodyAdvice<Object> {
 
   @Override
-  public boolean supports(MethodParameter returnType,
-    @NotNull Class<? extends HttpMessageConverter<?>> converterType) {
+  public boolean supports(
+      MethodParameter returnType, @NotNull Class<? extends HttpMessageConverter<?>> converterType) {
     return !returnType.hasMethodAnnotation(FRawResponse.class);
   }
 
   @Override
-  public Object beforeBodyWrite(Object body, @NotNull MethodParameter returnType,
-    @NotNull MediaType selectedContentType,
-    @NotNull Class<? extends HttpMessageConverter<?>> selectedConverterType,
-    @NotNull ServerHttpRequest request,
-    @NotNull ServerHttpResponse response) {
+  public Object beforeBodyWrite(
+      Object body,
+      @NotNull MethodParameter returnType,
+      @NotNull MediaType selectedContentType,
+      @NotNull Class<? extends HttpMessageConverter<?>> selectedConverterType,
+      @NotNull ServerHttpRequest request,
+      @NotNull ServerHttpResponse response) {
     HttpStatus status = HttpStatus.OK;
 
     if (request.getMethod() != null) {

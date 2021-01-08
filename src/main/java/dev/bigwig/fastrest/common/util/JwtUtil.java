@@ -32,20 +32,17 @@ public class JwtUtil {
   }
 
   public static <T> T extractClaim(String token, Function<Claims, T> claimsTFunction) {
-    Claims claims = Jwts.parser()
-      .setSigningKey(SECRET)
-      .parseClaimsJws(token)
-      .getBody();
+    Claims claims = Jwts.parser().setSigningKey(SECRET).parseClaimsJws(token).getBody();
     return claimsTFunction.apply(claims);
   }
 
   public static String create(Map<String, Object> claims, String subject) {
     return Jwts.builder()
-      .setClaims(claims)
-      .setSubject(subject)
-      .setIssuedAt(new Date(System.currentTimeMillis()))
-      .setExpiration(new Date(System.currentTimeMillis() + 60 * 60 * 6 * 1000))
-      .signWith(SignatureAlgorithm.HS512, SECRET)
-      .compact();
+        .setClaims(claims)
+        .setSubject(subject)
+        .setIssuedAt(new Date(System.currentTimeMillis()))
+        .setExpiration(new Date(System.currentTimeMillis() + 60 * 60 * 6 * 1000))
+        .signWith(SignatureAlgorithm.HS512, SECRET)
+        .compact();
   }
 }

@@ -5,8 +5,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 /**
- * @param <E>  实体
- * @param <D>  DTO
+ * @param <E> 实体
+ * @param <D> DTO
  * @param <ID> 主键类型
  */
 public interface FService<E, D, ID> {

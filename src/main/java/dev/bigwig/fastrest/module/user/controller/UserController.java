@@ -41,8 +41,7 @@ public class UserController implements FController<User, UserDTO, Long> {
   @FPageable
   @GetMapping("/paged")
   @Override
-  public Page<User> list(
-    @PageableDefault Pageable pageable) {
+  public Page<User> list(@PageableDefault Pageable pageable) {
     return userService.list(pageable);
   }
 

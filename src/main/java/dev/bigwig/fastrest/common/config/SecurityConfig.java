@@ -41,8 +41,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
   @Bean
   public CorsFilter corsFilter() {
-    UrlBasedCorsConfigurationSource source =
-      new UrlBasedCorsConfigurationSource();
+    UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
     CorsConfiguration config = new CorsConfiguration();
     config.setAllowCredentials(true);
     config.addAllowedOrigin("*");
@@ -60,38 +59,41 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
   @Override
   protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-    auth.userDetailsService(userService)
-      .passwordEncoder(passwordEncoder());
+    auth.userDetailsService(userService).passwordEncoder(passwordEncoder());
   }
 
   @Override
-  protected void configure(
-    HttpSecurity http) throws Exception {
+  protected void configure(HttpSecurity http) throws Exception {
     String[] ignoredPaths = fProperties.getIgnoredPath().toArray(new String[0]);
-    http.csrf().disable()
-      .cors()
-      .and()
-      .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-      .and()
-      .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
-      .exceptionHandling()
-      .accessDeniedHandler(new FAccessDeniedHandler())
-      .and()
-      .authorizeRequests()
-      .antMatchers("/auth/**").permitAll()
-      .antMatchers(ignoredPaths).permitAll()
-      .anyRequest().authenticated();
+    http.csrf()
+        .disable()
+        .cors()
+        .and()
+        .sessionManagement()
+        .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+        .and()
+        .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
+        .exceptionHandling()
+        .accessDeniedHandler(new FAccessDeniedHandler())
+        .and()
+        .authorizeRequests()
+        .antMatchers("/auth/**")
+        .permitAll()
+        .antMatchers(ignoredPaths)
+        .permitAll()
+        .anyRequest()
+        .authenticated();
   }
 
   public static class FAccessDeniedHandler implements AccessDeniedHandler {
 
     @Override
-    public void handle(HttpServletRequest request,
-      HttpServletResponse response,
-      AccessDeniedException accessDeniedException) throws IOException, ServletException {
-      FError error = new FError()
-        .setStatus(HttpStatus.FORBIDDEN)
-        .setMessage("无权访问");
+    public void handle(
+        HttpServletRequest request,
+        HttpServletResponse response,
+        AccessDeniedException accessDeniedException)
+        throws IOException, ServletException {
+      FError error = new FError().setStatus(HttpStatus.FORBIDDEN).setMessage("无权访问");
       response.setContentType("application/json; charset=UTF-8");
       response.setStatus(HttpStatus.FORBIDDEN.value());
       response.setCharacterEncoding("UTF-8");

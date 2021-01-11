@@ -15,7 +15,8 @@ public class FAuditorAware implements AuditorAware<Long> {
 
   @Override
   public @NotNull Optional<Long> getCurrentAuditor() {
-    String username = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    String username =
+        (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     return userRepository.findByUsername(username).map(User::getId);
   }
 }

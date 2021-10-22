@@ -32,7 +32,7 @@ val hutoolVersion = "5.7.14"
 val zxingVersion = "3.4.1"
 val jjwtVersion = "0.9.1"
 val poiVersion = "5.0.0"
-val minioVersion = "8.3.1"
+val minioVersion = "8.3.3"
 val jetbrainsAnnotationVersion = "22.0.0"
 val retrofitVersion = "2.2.16"
 

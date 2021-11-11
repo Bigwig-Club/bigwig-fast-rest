@@ -33,7 +33,7 @@ val zxingVersion = "3.4.1"
 val jjwtVersion = "0.9.1"
 val poiVersion = "5.1.0"
 val minioVersion = "8.3.3"
-val jetbrainsAnnotationVersion = "22.0.0"
+val jetbrainsAnnotationVersion = "23.0.0"
 val retrofitVersion = "2.2.16"
 
 dependencies {

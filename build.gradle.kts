@@ -34,7 +34,7 @@ val jjwtVersion = "0.9.1"
 val poiVersion = "5.2.0"
 val minioVersion = "8.3.5"
 val jetbrainsAnnotationVersion = "23.0.0"
-val retrofitVersion = "2.2.19"
+val retrofitVersion = "2.2.20"
 
 dependencies {
   implementation("org.springframework.boot:spring-boot-starter-data-jpa")

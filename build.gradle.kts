@@ -28,7 +28,7 @@ repositories {
 val springCloudAlibabaVersion = "2.2.7.RELEASE"
 val mapstructVersion = "1.4.2.Final"
 val knife4jVersion = "3.0.3"
-val hutoolVersion = "5.7.22"
+val hutoolVersion = "5.8.0"
 val zxingVersion = "3.5.0"
 val jjwtVersion = "0.9.1"
 val poiVersion = "5.2.2"

@@ -25,7 +25,7 @@ repositories {
   mavenCentral()
 }
 
-val springCloudAlibabaVersion = "2.2.7.RELEASE"
+val springCloudAlibabaVersion = "2.2.8.RELEASE"
 val mapstructVersion = "1.5.2.Final"
 val knife4jVersion = "3.0.3"
 val hutoolVersion = "5.8.2"
